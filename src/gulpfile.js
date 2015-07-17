@@ -10,14 +10,18 @@ var gulp = require('gulp'),
     csswring = require('csswring'),
     imagemin   = require('gulp-imagemin'),
     cache   = require('gulp-cache'),
-    del = require('del');
+    del = require('del'),
+    gulpif = require('gulp-if'),
+    merge = require('merge-stream'),
+    spritesmith = require("gulp.spritesmith");
 
 var paths = {
     src: {
         scripts: 'js/*.js',
         styles: 'less/**/*.less',
         mainLess: 'less/style.less',
-        images: 'images/**/*.*'
+        images: 'images/**/*.{png,jpg}',
+        sprites: 'images/sprites/*.{png,jpg}'
     },
     public: {
         scripts: '../public/js',
@@ -47,31 +51,40 @@ gulp.task('styles', function() {
         .pipe(livereload());
 });
 
+gulp.task('images', function(){
+    return gulp.src([paths.src.images, '!images/{sprites,sprites/**}'])
+        .pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))
+        .pipe(gulp.dest(paths.public.images))
+        .pipe(livereload());
+});
+
+gulp.task('sprites', function () {
+    var spriteData = gulp.src(paths.src.sprites)
+        .pipe(imagemin())
+        .pipe(spritesmith({
+            imgName: '_sprite.png',
+            cssName: '_sprite.less'
+        }));
+    var imgStream = spriteData.img
+        .pipe(gulp.dest(paths.public.images));
+    var cssStream = spriteData.css
+        .pipe(gulp.dest('less'));
+
+    return merge(imgStream, cssStream);
+});
+
 gulp.task('clean', function(cb) {
     del([paths.public.scripts, paths.public.styles, paths.public.images], {force: true}, cb)
 });
-
-gulp.task('images', ['clean'], function(){
-    return gulp.src(paths.src.images)
-        .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-        .pipe(gulp.dest(paths.public.images));
-});
-
 
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(paths.src.scripts, ['scripts']);
     gulp.watch(paths.src.styles, ['styles']);
+    gulp.watch(paths.src.sprites, ['sprites', 'styles']);
     gulp.watch(paths.src.images, ['images']);
+
+
 });
 
-gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'watch');
-});
-
-
-
-
-
-
-
+gulp.task('default', ['clean', 'images', 'sprites', 'styles', 'scripts',  'watch']);
