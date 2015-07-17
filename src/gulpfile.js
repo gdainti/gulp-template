@@ -75,7 +75,7 @@ gulp.task('sprites', function () {
 });
 
 gulp.task('clean', function(cb) {
-    del(paths.public.images], {force: true}, cb)
+    del(paths.public.images, {force: true}, cb)
 });
 
 gulp.task('watch', function() {
