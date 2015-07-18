@@ -36,6 +36,7 @@ gulp.task('scripts', function(){
         .pipe(uglify())
         .pipe(concat("script.js"))
         .pipe(sourcemaps.write())
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.public.scripts))
         .pipe(livereload());
 });
@@ -47,6 +48,7 @@ gulp.task('styles', function() {
         .pipe(autoprefixer('last 2 version'))
         .pipe(postcss([csswring]))
         .pipe(sourcemaps.write())
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.public.styles))
         .pipe(livereload());
 });
