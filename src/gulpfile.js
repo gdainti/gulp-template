@@ -19,7 +19,7 @@ var paths = {
     src: {
         scripts: 'js/*.js',
         styles: 'less/**/*.less',
-        mainLess: 'less/style.less',
+        mainLess: 'less/_style.less',
         images: 'images/**/*.{png,jpg}',
         sprites: 'images/sprites/*.{png,jpg}'
     },
@@ -36,6 +36,7 @@ gulp.task('scripts', function(){
         .pipe(uglify())
         .pipe(concat("script.js"))
         .pipe(sourcemaps.write())
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.public.scripts))
         .pipe(livereload());
 });
@@ -47,6 +48,10 @@ gulp.task('styles', function() {
         .pipe(autoprefixer('last 2 version'))
         .pipe(postcss([csswring]))
         .pipe(sourcemaps.write())
+        .pipe(rename({
+           basename: 'style',
+           suffix: '.min'
+        }))
         .pipe(gulp.dest(paths.public.styles))
         .pipe(livereload());
 });
@@ -64,7 +69,7 @@ gulp.task('sprites', function () {
         .pipe(spritesmith({
             imgPath: '/images/_sprite.png',
             imgName: '_sprite.png',
-            cssName: '_sprite.less'
+            cssName: 'sprite.less'
         }));
     var imgStream = spriteData.img
         .pipe(gulp.dest(paths.public.images));
@@ -75,7 +80,7 @@ gulp.task('sprites', function () {
 });
 
 gulp.task('clean', function(cb) {
-    del(paths.public.images], {force: true}, cb)
+    del(paths.public.images, {force: true}, cb)
 });
 
 gulp.task('watch', function() {
@@ -84,7 +89,6 @@ gulp.task('watch', function() {
     gulp.watch(paths.src.styles, ['styles']);
     gulp.watch(paths.src.sprites, ['sprites', 'styles']);
     gulp.watch(paths.src.images, ['images']);
-
 
 });
 
