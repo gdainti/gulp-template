@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     del = require('del'),
     gulpif = require('gulp-if'),
     merge = require('merge-stream'),
-    spritesmith = require("gulp.spritesmith");
+    spritesmith = require("gulp.spritesmith"),
+    plumber = require('gulp-plumber');
 
 var paths = {
     src: {
@@ -32,6 +33,7 @@ var paths = {
 
 gulp.task('scripts', function(){
     gulp.src(paths.src.scripts)
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(concat("script.js"))
@@ -43,6 +45,7 @@ gulp.task('scripts', function(){
 
 gulp.task('styles', function() {
     gulp.src(paths.src.mainLess)
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(autoprefixer('last 2 version'))
@@ -58,6 +61,7 @@ gulp.task('styles', function() {
 
 gulp.task('images', function(){
     return gulp.src([paths.src.images, '!images/{sprites,sprites/**}'])
+        .pipe(plumber())
         .pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))
         .pipe(gulp.dest(paths.public.images))
         .pipe(livereload());
@@ -65,6 +69,7 @@ gulp.task('images', function(){
 
 gulp.task('sprites', function () {
     var spriteData = gulp.src(paths.src.sprites)
+        .pipe(plumber())
         .pipe(imagemin())
         .pipe(spritesmith({
             imgPath: '/images/_sprite.png',

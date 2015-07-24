@@ -19,6 +19,7 @@
     "gulp-imagemin": "^2.3.0",
     "gulp-less": "^3.0.3",
     "gulp-livereload": "^3.8.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-postcss": "^5.1.9",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
