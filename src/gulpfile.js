@@ -69,7 +69,8 @@ gulp.task('sprites', function () {
         .pipe(spritesmith({
             imgPath: '/images/_sprite.png',
             imgName: '_sprite.png',
-            cssName: 'sprite.less'
+            cssName: 'sprite.less',
+            padding: 2
         }));
     var imgStream = spriteData.img
         .pipe(gulp.dest(paths.public.images));
@@ -92,4 +93,4 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('default', ['clean', 'images', 'sprites', 'styles', 'scripts',  'watch']);
+gulp.task('default', [/*'clean',*/ 'images', 'sprites', 'styles', 'scripts',  'watch']);
