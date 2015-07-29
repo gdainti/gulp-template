@@ -11,29 +11,28 @@
 @gray-darker:            lighten(@gray-base, 13.5%); // #222
 @gray-dark:              lighten(@gray-base, 20%);   // #333
 @gray:                   lighten(@gray-base, 33.5%); // #555
-@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-light:             #8d8d8d;
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
-@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+@brand-primary:         #65C7CB;
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
 @brand-danger:          #d9534f;
-
 
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #fff;
+@body-bg:               #67a59a;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            @gray-base;
 
 //** Global textual link color.
-@link-color:            @brand-primary;
+@link-color:            #fff;
 //** Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      @link-color;
 //** Link hover decoration.
 @link-hover-decoration: underline;
 
@@ -42,27 +41,29 @@
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-sans-serif:  "open_sanssemibold", Helvetica, Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
+@font-family-bold: "open_sansbold", Helvetica, Arial, sans-serif;
+@font-family-regular: "open_sansregular", Helvetica, Arial, sans-serif;
 
 @font-size-base:          14px;
 @font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
 @font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
 
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h1:            20px;
+@font-size-h2:            18px;
+@font-size-h3:            16px;
+@font-size-h4:            15px;
 @font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+@font-size-h6:            ceil((@font-size-base * 0.85));
 
 //** Unit-less `line-height` for use in components like buttons.
 @line-height-base:        1.428571429; // 20/14
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+@line-height-computed:    0px;//floor((@font-size-base * @line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
@@ -91,7 +92,7 @@
 @padding-base-horizontal:   12px;
 
 @padding-large-vertical:    10px;
-@padding-large-horizontal:  16px;
+@padding-large-horizontal:  25px;
 
 @padding-small-vertical:    5px;
 @padding-small-horizontal:  10px;
@@ -102,7 +103,7 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
-@border-radius-base:        4px;
+@border-radius-base:        5px;
 @border-radius-large:       6px;
 @border-radius-small:       3px;
 
@@ -122,12 +123,12 @@
 //## Customizes the `.table` component with basic values, each used across all table variations.
 
 //** Padding for `<th>`s and `<td>`s.
-@table-cell-padding:            8px;
+@table-cell-padding:            25px 15px;
 //** Padding for cells in `.table-condensed`.
 @table-condensed-cell-padding:  5px;
 
 //** Default background color used for all tables.
-@table-bg:                      transparent;
+@table-bg:                      #edf1f5;
 //** Background color used for `.table-striped`.
 @table-bg-accent:               #f9f9f9;
 //** Background color used for `.table-hover`.
@@ -135,7 +136,7 @@
 @table-bg-active:               @table-bg-hover;
 
 //** Border color for table and cell borders.
-@table-border-color:            #ddd;
+@table-border-color:            #d3d7dc;
 
 
 //== Buttons
@@ -150,7 +151,7 @@
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
-@btn-primary-border:             darken(@btn-primary-bg, 5%);
+@btn-primary-border:             #577e81;
 
 @btn-success-color:              #fff;
 @btn-success-bg:                 @brand-success;
@@ -183,14 +184,15 @@
 //** `<input>` background color
 @input-bg:                       #fff;
 //** `<input disabled>` background color
-@input-bg-disabled:              @gray-lighter;
+@input-bg-disabled:              #f2f2f2;
 
 //** Text color for `<input>`s
-@input-color:                    @gray;
+@input-color:                    @gray-base;
 //** `<input>` border color
-@input-border:                   #ccc;
+@input-border:                   #e5e5e5;
 
 // TODO: Rename `@input-border-radius` to `@input-border-radius-base` in v4
+@input-border-radius-base: @border-radius-base;
 //** Default `.form-control` border radius
 // This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
 @input-border-radius:            @border-radius-base;
@@ -203,10 +205,10 @@
 @input-border-focus:             #66afe9;
 
 //** Placeholder text color
-@input-color-placeholder:        #999;
+@input-color-placeholder:        @gray-light;
 
 //** Default `.form-control` height
-@input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-base:              40px;
 //** Large `.form-control` height
 @input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
 //** Small `.form-control` height
@@ -306,7 +308,7 @@
 
 // Large screen / wide desktop
 //** Deprecated `@screen-lg` as of v3.0.1
-@screen-lg:                  1200px;
+@screen-lg:                  1250px;
 @screen-lg-min:              @screen-lg;
 //** Deprecated `@screen-lg-desktop` as of v3.0.1
 @screen-lg-desktop:          @screen-lg-min;
@@ -347,7 +349,7 @@
 @container-md:                 @container-desktop;
 
 // Large screen / wide desktop
-@container-large-desktop:      (1140px + @grid-gutter-width);
+@container-large-desktop:      (1170px + @grid-gutter-width);
 //** For `@screen-lg-min` and up.
 @container-lg:                 @container-large-desktop;
 
@@ -419,8 +421,8 @@
 //##
 
 //=== Shared nav styles
-@nav-link-padding:                          10px 15px;
-@nav-link-hover-bg:                         @gray-lighter;
+@nav-link-padding:                          5px 15px;
+@nav-link-hover-bg:                         rgba(0,0,0,0.2);
 
 @nav-disabled-link-color:                   @gray-light;
 @nav-disabled-link-hover-color:             @gray-light;
@@ -439,7 +441,7 @@
 
 //== Pills
 @nav-pills-border-radius:                   @border-radius-base;
-@nav-pills-active-link-hover-bg:            @component-active-bg;
+@nav-pills-active-link-hover-bg:            rgba(0,0,0,0.2);
 @nav-pills-active-link-hover-color:         @component-active-color;
 
 
@@ -447,17 +449,17 @@
 //
 //##
 
-@pagination-color:                     @link-color;
-@pagination-bg:                        #fff;
-@pagination-border:                    #ddd;
+@pagination-color:                     @gray-base;
+@pagination-bg:                        transparent;
+@pagination-border:                    transparent;
 
-@pagination-hover-color:               @link-hover-color;
-@pagination-hover-bg:                  @gray-lighter;
-@pagination-hover-border:              #ddd;
+@pagination-hover-color:               @gray-base;
+@pagination-hover-bg:                  #d8dbe1;
+@pagination-hover-border:              #ccd0d4;
 
-@pagination-active-color:              #fff;
-@pagination-active-bg:                 @brand-primary;
-@pagination-active-border:             @brand-primary;
+@pagination-active-color:              @gray-base;
+@pagination-active-bg:                 #d8dbe1;
+@pagination-active-border:             #ccd0d4;
 
 @pagination-disabled-color:            @gray-light;
 @pagination-disabled-bg:               #fff;
@@ -520,7 +522,7 @@
 //** Tooltip max width
 @tooltip-max-width:           200px;
 //** Tooltip text color
-@tooltip-color:               #fff;
+@tooltip-color:               #FEFEFE;
 //** Tooltip background color
 @tooltip-bg:                  #000;
 @tooltip-opacity:             .9;
@@ -865,3 +867,35 @@
 @dl-horizontal-offset:        @component-offset-horizontal;
 //** Horizontal line color.
 @hr-border:                   @gray-lighter;
+
+
+// custom variables
+
+//path
+@font-path: "../fonts/";
+@images-path: "../../images";
+
+//color
+@table-block-heading-color: #fdfefe;
+@table-row-separator-color: #d3d7dc;
+@t-item-action-color: #65c7cb;
+
+@btn-menu-item-bg: rgba(0,0,0,.2);
+@btn-menu-border: 1px solid rgba(255,255,255,0.5);
+
+@c-notification: #de4e2c;
+
+@c-status-new: #3f69ab;
+@c-status-success: #35b34d;
+@c-status-warning: #de882c;
+@c-status-danger: @c-notification;
+@c-status-archive: #000000;
+
+//font
+@heading-font-size: 16px;
+@info-font-size: 18px;
+
+//units
+@auth-form-width: 345px;
+
+//

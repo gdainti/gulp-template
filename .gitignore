@@ -1,0 +1,9 @@
+//developments files
+.project/
+.idea/
+.htaccess
+composer.phar
+src/node_modules/
+
+//project files
+*local.php

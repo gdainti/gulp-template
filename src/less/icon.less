@@ -1,0 +1,75 @@
+.i-time {
+  .before-sprite-icon(@i-time);
+}
+
+.i-locked {
+  .before-sprite-icon(@i-locked);
+}
+
+.i-unlocked {
+  .before-sprite-icon(@i-unlocked);
+}
+
+.i-close {
+  .before-font-icon("\00d7", 40px);
+}
+
+.i-delete {
+  .before-font-icon("\00d7", 40px);
+  .text-hide();
+  &:before {
+    color: #eba594;
+  }
+  &:hover, &.active, &:focus {
+    &:before {
+      .font-icon-hover(#eba594);
+    }
+  }
+}
+
+.i-delete-sm {
+  .before-font-icon("\00d7", 30px);
+  .text-hide();
+  &:before {
+    color: #eba594;
+  }
+  &:hover, &.active, &:focus {
+    &:before {
+      .font-icon-hover(#eba594);
+    }
+  }
+}
+
+.i-plus {
+  .before-font-icon("+", 36px, 700);
+}
+
+.i-back {
+  .before-font-icon("<", 30px, 300);
+  &:before {
+    line-height: 17px;
+    font-family: monospace;
+  }
+}
+
+.i-eye {
+  .after-sprite-icon(@i-eye);
+  cursor: pointer;
+}
+
+
+.i-drop-down-text {
+  .after-sprite-icon(@i-drop-down);
+  &:after {
+    margin-top: 9px;
+    margin-left: 5px;
+  }
+}
+
+.i-drop-up-text {
+  .after-sprite-icon(@i-drop-up);
+  &:after {
+    margin-top: 9px;
+    margin-left: 5px;
+  }
+}
