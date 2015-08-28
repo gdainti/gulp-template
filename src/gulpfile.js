@@ -1,3 +1,17 @@
+/*
+
+usage:
+
+$: cd src
+
+production build
+$: gulp
+
+development build (with sourcemaps, livereload and watch)
+$: gulp --dev
+
+*/
+
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
@@ -14,15 +28,16 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     merge = require('merge-stream'),
     spritesmith = require("gulp.spritesmith"),
-    plumber = require('gulp-plumber');
+    plumber = require('gulp-plumber'),
+    argv = require('yargs').argv;
 
 var paths = {
     src: {
         scripts: 'js/*.js',
         styles: 'less/**/*.less',
         mainLess: 'less/_style.less',
-        images: 'images/**/*.{png,jpg}',
-        sprites: 'images/sprites/*.{png,jpg}'
+        images: 'images/**/*.{png,jpg,gif}',
+        sprites: 'images/sprites/*.{png,jpg,gif}'
     },
     public: {
         scripts: '../public/js',
@@ -34,29 +49,29 @@ var paths = {
 gulp.task('scripts', function(){
     gulp.src(paths.src.scripts)
         .pipe(plumber())
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(argv.dev,sourcemaps.init()))
         .pipe(uglify())
         .pipe(concat("script.js"))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(argv.dev,sourcemaps.write()))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.public.scripts))
-        .pipe(livereload());
+        .pipe(gulpif(argv.dev,livereload()));
 });
 
 gulp.task('styles', function() {
     gulp.src(paths.src.mainLess)
         .pipe(plumber())
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(argv.dev,sourcemaps.init()))
         .pipe(less())
         .pipe(autoprefixer('last 2 version'))
         .pipe(postcss([csswring]))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(argv.dev,sourcemaps.write()))
         .pipe(rename({
            basename: 'style',
            suffix: '.min'
         }))
         .pipe(gulp.dest(paths.public.styles))
-        .pipe(livereload());
+        .pipe(gulpif(argv.dev,livereload()));
 });
 
 gulp.task('images', function(){
@@ -64,7 +79,7 @@ gulp.task('images', function(){
         .pipe(plumber())
         .pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))
         .pipe(gulp.dest(paths.public.images))
-        .pipe(livereload());
+        .pipe(gulpif(argv.dev,livereload()));
 });
 
 gulp.task('sprites', function () {
@@ -90,12 +105,13 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('watch', function() {
-    livereload.listen();
-    gulp.watch(paths.src.scripts, ['scripts']);
-    gulp.watch(paths.src.styles, ['styles']);
-    gulp.watch(paths.src.sprites, ['sprites', 'styles']);
-    gulp.watch(paths.src.images, ['images']);
-
+    if (argv.dev) {
+        livereload.listen();
+        gulp.watch(paths.src.scripts, ['scripts']);
+        gulp.watch(paths.src.styles, ['styles']);
+        gulp.watch(paths.src.sprites, ['sprites', 'styles']);
+        gulp.watch(paths.src.images, ['images']);
+    }
 });
 
 gulp.task('default', [/*'clean',*/ 'images', 'sprites', 'styles', 'scripts',  'watch']);

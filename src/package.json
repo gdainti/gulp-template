@@ -26,7 +26,8 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "merge-stream": "~0.1.8",
-    "vinyl-fs": "^1.0.0"
+    "vinyl-fs": "^1.0.0",
+    "yargs": "~3.21.0"
   },
   "dependencies": {
     "gulp.spritesmith": "~3.8.2"
